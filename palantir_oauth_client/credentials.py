@@ -27,15 +27,15 @@ class Credentials(object):
     """
 
     def __init__(
-        self,
-        token: str,
-        refresh_token: Optional[str] = None,
-        token_uri: Optional[str] = None,
-        client_id: Optional[str] = None,
-        client_secret: Optional[str] = None,
-        scopes: Optional[List[str]] = None,
-        default_scopes: Optional[List[str]] = None,
-        expiry: Optional[datetime] = None,
+            self,
+            token: str,
+            refresh_token: Optional[str] = None,
+            token_uri: Optional[str] = None,
+            client_id: Optional[str] = None,
+            client_secret: Optional[str] = None,
+            scopes: Optional[List[str]] = None,
+            default_scopes: Optional[List[str]] = None,
+            expiry: Optional[datetime] = None,
     ):
         """
         Args:
@@ -65,15 +65,16 @@ class Credentials(object):
 
     @classmethod
     def from_session(
-        cls,
-        session: requests_oauthlib.OAuth2Session,
-        client_config: Mapping[str, Any] = None,
+            cls,
+            session: requests_oauthlib.OAuth2Session,
+            client_config: Mapping[str, Any] = None,
     ):
-        """Creates :class:`palantir_oauth_client.credentials.Credentials` from a :class:`requests_oauthlib.OAuth2Session`.
+        """
+        Creates :class:`palantir_oauth_client.credentials.Credentials` from a :class:`requests_oauthlib.OAuth2Session`.
 
         :meth:`fetch_token` must be called on the session before calling this. This uses the session's auth token
-        and the provided client configuration to create :class:`palantir_oauth_client.credentials.Credentials`. This allows you
-        to use the credentials from the session with Foundry API client libraries.
+        and the provided client configuration to create :class:`palantir_oauth_client.credentials.Credentials`.
+        This allows you to use the credentials from the session with Foundry API client libraries.
         """
         client_config = client_config if client_config is not None else {}
 
@@ -148,9 +149,9 @@ class Credentials(object):
 
     def refresh(self):
         if (
-            self._refresh_token is None
-            or self._token_uri is None
-            or self._client_id is None
+                self._refresh_token is None
+                or self._token_uri is None
+                or self._client_id is None
         ):
             raise RefreshError(
                 "The credentials do not contain the necessary fields need to "
@@ -178,7 +179,7 @@ class Credentials(object):
             requested_scopes = frozenset(scopes)
             granted_scopes = frozenset(grant_response["scopes"].split())
             scopes_requested_but_not_granted = (
-                requested_scopes - granted_scopes
+                    requested_scopes - granted_scopes
             )
             if scopes_requested_but_not_granted:
                 raise RefreshError(

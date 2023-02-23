@@ -152,7 +152,8 @@ class CredentialsCache(object):
 
 class ReadWriteCredentialsCache(CredentialsCache):
     """
-    A :class:`~palantir_oauth_client.cache.CredentialsCache` which writes to disk and reads cached credentials from disk.
+    A :class:`~palantir_oauth_client.cache.CredentialsCache`
+    which writes to disk and reads cached credentials from disk.
     """
 
     def __init__(self, dirname=_DIRNAME, filename=_FILENAME):
