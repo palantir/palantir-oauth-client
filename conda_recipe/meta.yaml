@@ -1,0 +1,31 @@
+package:
+  name: palantir-oauth-client
+  version: "{{ GIT_DESCRIBE_TAG }}"
+
+build:
+  noarch: python
+  number: "{{ GIT_DESCRIBE_NUMBER }}"
+  string: "{{ GIT_BUILD_STR }}"
+
+source:
+  path: ..
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+    - oauthlib
+    - requests
+    - requests-oauthlib
+    - typing
+
+test:
+  requires:
+    - mock
+    - pytest-mock
+
+about:
+  home: https://github.com/palantir/palantir-oath-client
