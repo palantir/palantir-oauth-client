@@ -36,6 +36,7 @@ AUTH_URI = "/multipass/api/oauth2/authorize"
 TOKEN_URI = "/multipass/api/oauth2/token"
 CALLBACK_CLIENT_URI = "/multipass/api/oauth2/callback"
 
+
 def get_user_credentials(
     scopes: List[str],
     hostname: str,

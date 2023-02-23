@@ -90,7 +90,7 @@ class CondaBuild(Command):
 
 version = __version__
 setup(
-    name="palantir-oath-client",
+    name="palantir-oauth-client",
     version=__version__,
     description="OAuth2 client for Palantir Foundry",
     author="Palantir Technologies, Inc.",

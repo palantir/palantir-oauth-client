@@ -152,7 +152,8 @@ class CredentialsCache(object):
 
 class ReadWriteCredentialsCache(CredentialsCache):
     """
-    A :class:`~palantir_oauth_client.cache.CredentialsCache` which writes to disk and reads cached credentials from disk.
+    A :class:`~palantir_oauth_client.cache.CredentialsCache`
+    which writes to disk and reads cached credentials from disk.
     """
 
     def __init__(self, dirname=_DIRNAME, filename=_FILENAME):
@@ -168,8 +169,8 @@ class ReadWriteCredentialsCache(CredentialsCache):
 
 class WriteOnlyCredentialsCache(CredentialsCache):
     """
-    A :class:`~palantir_oauth_client.cache.CredentialsCache` which writes to disk, but doesn't read from disk. Use this class
-    to reauthorize against Foundry APIs and cache your credentials for later.
+    A :class:`~palantir_oauth_client.cache.CredentialsCache` which writes to disk, but doesn't read from disk.
+    Use this class to reauthorize against Foundry APIs and cache your credentials for later.
     """
 
     def __init__(self, dirname=_DIRNAME, filename=_FILENAME):

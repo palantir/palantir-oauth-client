@@ -28,4 +28,4 @@ test:
     - pytest-mock
 
 about:
-  home: https://github.com/palantir/palantir-oath-client
+  home: https://github.com/palantir/palantir-oauth-client
