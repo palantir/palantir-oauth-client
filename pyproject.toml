@@ -2,6 +2,7 @@
 name = "palantir-oauth-client"
 version = "0.0.0"  # placeholder, updated by git describe during publish
 description = "OAuth2 client for Palantir Foundry"
+license = "Apache-2.0"
 authors = ["Thomas Powell <tpowell@palantir.com>", "Andrew Higgins <ahiggins@palantir.com>"]
 readme = "README.md"
 packages = [{include = "palantir_oauth_client"}]
