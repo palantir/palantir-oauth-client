@@ -1,0 +1,5 @@
+type: deprecation
+deprecation:
+  description: Removed typing and setuptools_scm as project requirements
+  links:
+  - https://github.com/palantir/palantir-oauth-client/pull/3
