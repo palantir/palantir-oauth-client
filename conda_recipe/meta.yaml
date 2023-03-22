@@ -20,7 +20,6 @@ requirements:
     - oauthlib
     - requests
     - requests-oauthlib
-    - typing
 
 test:
   requires:

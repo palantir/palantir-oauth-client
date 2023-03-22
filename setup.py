@@ -97,7 +97,7 @@ setup(
     url="https://github.com/palantir/palantir-oauth-client",
     packages=find_packages(exclude=["test*", "integration*"]),
     python_requires=">=3",
-    install_requires=["oauthlib", "requests", "requests-oauthlib", "typing"],
+    install_requires=["oauthlib", "requests", "requests-oauthlib"],
     extras_require={
         "test": ["pytest", "mockito", "pytest-mockito", "expects", "tox"]
     },
