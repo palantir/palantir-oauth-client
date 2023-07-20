@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 import requests_oauthlib
-from datetime import datetime, UTC
+from datetime import datetime, timezone
 from typing import Any, List, Mapping, Optional
 
 from ._client import refresh_grant
@@ -92,7 +92,7 @@ class Credentials(object):
             client_secret=client_config.get("client_secret"),
             scopes=session.scope,
         )
-        credentials.expiry = datetime.fromtimestamp(session.token["expires_at"], tz=UTC)
+        credentials.expiry = datetime.fromtimestamp(session.token["expires_at"], tz=timezone.utc)
         return credentials
 
     def __getstate__(self):

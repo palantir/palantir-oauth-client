@@ -13,10 +13,11 @@
 #  limitations under the License.
 import calendar
 import requests_oauthlib
-from datetime import datetime, timedelta, UTC
+from datetime import datetime, timedelta, timezone
 from typing import Any, Mapping, Sequence, Tuple
 from urllib3.util import parse_url
 from urllib.parse import urlparse, parse_qs
+
 
 CLOCK_SKEW_SECONDS = 10
 CLOCK_SKEW = timedelta(seconds=CLOCK_SKEW_SECONDS)
@@ -34,7 +35,7 @@ def get_hostname(url: str) -> str:
 
 def utcnow() -> datetime:
     """Returns the current UTC datetime."""
-    return datetime.now(tz=UTC)
+    return datetime.now(tz=timezone.utc)
 
 
 def datetime_to_secs(value: datetime) -> int:

@@ -1,7 +1,7 @@
 import json
 import pytest
 import requests
-from datetime import datetime, timedelta, UTC
+from datetime import datetime, timedelta,timezone
 from expects import *
 from mockito import ANY, mock, patch
 
@@ -9,7 +9,7 @@ from palantir_oauth_client._client import refresh_grant
 from palantir_oauth_client.errors import RefreshError
 
 
-now = datetime.now(tz=UTC)
+now = datetime.now(tz=timezone.utc)
 
 
 class TestClient:
