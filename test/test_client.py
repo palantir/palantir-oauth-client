@@ -1,7 +1,7 @@
 import json
 import pytest
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from expects import *
 from mockito import ANY, mock, patch
 
@@ -9,7 +9,7 @@ from palantir_oauth_client._client import refresh_grant
 from palantir_oauth_client.errors import RefreshError
 
 
-now = datetime.utcnow()
+now = datetime.now(tz=UTC)
 
 
 class TestClient:
@@ -75,9 +75,7 @@ class TestClient:
         )
 
     def test_retryable_error(self):
-        self.response.content = json.dumps(
-            {"error": "internal_failure"}  # noqa
-        )
+        self.response.content = json.dumps({"error": "internal_failure"})  # noqa
         self.response.status_code = 500  # noqa
 
         def _post(token_uri, body, headers):

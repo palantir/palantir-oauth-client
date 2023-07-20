@@ -13,7 +13,7 @@
 #  limitations under the License.
 import calendar
 import requests_oauthlib
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, UTC
 from typing import Any, Mapping, Sequence, Tuple
 from urllib3.util import parse_url
 from urllib.parse import urlparse, parse_qs
@@ -34,7 +34,7 @@ def get_hostname(url: str) -> str:
 
 def utcnow() -> datetime:
     """Returns the current UTC datetime."""
-    return datetime.utcnow()
+    return datetime.now(tz=UTC)
 
 
 def datetime_to_secs(value: datetime) -> int:
@@ -55,10 +55,7 @@ def session_from_client_config(
     return session, client_config
 
 
-def is_state_valid(
-    stored_state,
-    url
-) -> (bool, str):
+def is_state_valid(stored_state, url) -> (bool, str):
     parsed_url = urlparse(url)
     url_query = parse_qs(parsed_url.query)
     received_state = url_query.get("state", None)
