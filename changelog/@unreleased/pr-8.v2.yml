@@ -1,0 +1,6 @@
+type: improvement
+improvement:
+  description: Switch to datetime methods using timezones.
+  links:
+  - https://github.com/palantir/palantir-oauth-client/pull/8
+
