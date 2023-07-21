@@ -13,7 +13,7 @@
 #  limitations under the License.
 
 import requests_oauthlib
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, List, Mapping, Optional
 
 from ._client import refresh_grant
@@ -27,15 +27,15 @@ class Credentials(object):
     """
 
     def __init__(
-            self,
-            token: str,
-            refresh_token: Optional[str] = None,
-            token_uri: Optional[str] = None,
-            client_id: Optional[str] = None,
-            client_secret: Optional[str] = None,
-            scopes: Optional[List[str]] = None,
-            default_scopes: Optional[List[str]] = None,
-            expiry: Optional[datetime] = None,
+        self,
+        token: str,
+        refresh_token: Optional[str] = None,
+        token_uri: Optional[str] = None,
+        client_id: Optional[str] = None,
+        client_secret: Optional[str] = None,
+        scopes: Optional[List[str]] = None,
+        default_scopes: Optional[List[str]] = None,
+        expiry: Optional[datetime] = None,
     ):
         """
         Args:
@@ -65,9 +65,9 @@ class Credentials(object):
 
     @classmethod
     def from_session(
-            cls,
-            session: requests_oauthlib.OAuth2Session,
-            client_config: Mapping[str, Any] = None,
+        cls,
+        session: requests_oauthlib.OAuth2Session,
+        client_config: Mapping[str, Any] = None,
     ):
         """
         Creates :class:`palantir_oauth_client.credentials.Credentials` from a :class:`requests_oauthlib.OAuth2Session`.
@@ -92,9 +92,7 @@ class Credentials(object):
             client_secret=client_config.get("client_secret"),
             scopes=session.scope,
         )
-        credentials.expiry = datetime.utcfromtimestamp(
-            session.token["expires_at"]
-        )
+        credentials.expiry = datetime.fromtimestamp(session.token["expires_at"], tz=timezone.utc)
         return credentials
 
     def __getstate__(self):
@@ -149,9 +147,9 @@ class Credentials(object):
 
     def refresh(self):
         if (
-                self._refresh_token is None
-                or self._token_uri is None
-                or self._client_id is None
+            self._refresh_token is None
+            or self._token_uri is None
+            or self._client_id is None
         ):
             raise RefreshError(
                 "The credentials do not contain the necessary fields need to "
@@ -159,9 +157,7 @@ class Credentials(object):
                 "token_uri, client_id."
             )
 
-        scopes = (
-            self._scopes if self._scopes is not None else self._default_scopes
-        )
+        scopes = self._scopes if self._scopes is not None else self._default_scopes
 
         access_token, refresh_token, expiry, grant_response = refresh_grant(
             self._token_uri,
@@ -178,9 +174,7 @@ class Credentials(object):
         if scopes and "scopes" in grant_response:
             requested_scopes = frozenset(scopes)
             granted_scopes = frozenset(grant_response["scopes"].split())
-            scopes_requested_but_not_granted = (
-                    requested_scopes - granted_scopes
-            )
+            scopes_requested_but_not_granted = requested_scopes - granted_scopes
             if scopes_requested_but_not_granted:
                 raise RefreshError(
                     "Not all requested scopes were granted by the authorization server, missing scopes {}.".format(
