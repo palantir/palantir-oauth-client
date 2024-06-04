@@ -118,10 +118,7 @@ class Flow(object):
             if previous_value is not None:
                 os.environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = previous_value
 
-    def get_authorization_url(
-        self,
-        **kwargs
-    ) -> str:
+    def get_authorization_url(self, **kwargs) -> str:
         kwargs.setdefault("prompt", "consent")
 
         self.redirect_uri = "callback".join(
@@ -179,9 +176,7 @@ class Flow(object):
             host, port, wsgi_app, handler_class=_WSGIRequestHandler
         )
 
-        self.redirect_uri = "http://{}:{}/".format(
-            host, local_server.server_port
-        )
+        self.redirect_uri = "http://{}:{}/".format(host, local_server.server_port)
         auth_url, state = self.authorization_url(**kwargs)
 
         if open_browser:
@@ -198,9 +193,7 @@ class Flow(object):
             raise CsrfError("CSRF warning: state check failed.")
 
         # N.B. using https here because oauthlib requires OAuth 2.0 to occur over https
-        authorization_response = redirect_uri.replace(
-            "http", "https"
-        )
+        authorization_response = redirect_uri.replace("http", "https")
 
         self.fetch_token(authorization_response=authorization_response)
 

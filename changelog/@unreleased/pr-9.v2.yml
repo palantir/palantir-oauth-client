@@ -1,0 +1,5 @@
+type: fix
+improvement:
+  description: Update requests-oauthlib dependency
+  links:
+  - https://github.com/palantir/palantir-oauth-client/pull/9

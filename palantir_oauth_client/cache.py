@@ -50,18 +50,14 @@ def _get_default_credentials_path(
 def _load_user_credentials_from_config(
     config: configparser.ConfigParser, hostname: Optional[str] = None
 ) -> Optional[Credentials]:
-    content = (
-        config[hostname] if config.has_section(hostname) else config["DEFAULT"]
-    )
+    content = config[hostname] if config.has_section(hostname) else config["DEFAULT"]
     credentials = Credentials(
         token=content.get("access_token"),
         refresh_token=content.get("refresh_token"),
         token_uri=content.get("token_uri"),
         client_id=content.get("client_id"),
         client_secret=content.get("client_secret"),
-        scopes=[
-            scope.strip() for scope in content.get("scopes", "").split(",")
-        ],
+        scopes=[scope.strip() for scope in content.get("scopes", "").split(",")],
     )
 
     if credentials and not credentials.valid:
@@ -83,18 +79,14 @@ def _load_user_credentials_from_file(
         config.read(credentials_path)
     except (IOError, ValueError) as exc:
         _LOGGER.debug(
-            "Error loading credentials from {}: {}".format(
-                credentials_path, str(exc)
-            )
+            "Error loading credentials from {}: {}".format(credentials_path, str(exc))
         )
         return None
 
     return _load_user_credentials_from_config(config, hostname=hostname)
 
 
-def _save_user_account_credentials(
-    credentials: Credentials, credentials_path: str
-):
+def _save_user_account_credentials(credentials: Credentials, credentials_path: str):
     config_dir = os.path.dirname(credentials_path)
     if not os.path.exists(config_dir):
         try:

@@ -92,12 +92,8 @@ def get_user_credentials(
         "redirect_uri": urlunparse(
             ["https", _hostname, CALLBACK_CLIENT_URI, None, None, None]
         ),
-        "auth_uri": urlunparse(
-            ["https", _hostname, AUTH_URI, None, None, None]
-        ),
-        "token_uri": urlunparse(
-            ["https", _hostname, TOKEN_URI, None, None, None]
-        ),
+        "auth_uri": urlunparse(["https", _hostname, AUTH_URI, None, None, None]),
+        "token_uri": urlunparse(["https", _hostname, TOKEN_URI, None, None, None]),
     }
 
     credentials = credentials_cache.load(hostname=_hostname)
@@ -110,9 +106,7 @@ def get_user_credentials(
             else:
                 credentials = app_flow.run_console()
         except oauthlib.oauth2.rfc6749.errors.OAuth2Error as exc:
-            raise CredentialsError(
-                "Unable to get valid credentials: {}".format(exc)
-            )
+            raise CredentialsError("Unable to get valid credentials: {}".format(exc))
 
     if credentials and not credentials.valid:
         credentials.refresh()
@@ -198,7 +192,7 @@ def load_user_credentials(path: str):
     return credentials
 
 
-class AuthContext():
+class AuthContext:
     def __init__(self, flow: Flow, url: str):
         self._flow = flow
         self.authorization_url = url
@@ -227,9 +221,7 @@ class AuthContext():
             self._flow.fetch_token(code=auth_code)
             return self._flow.credentials
         except oauthlib.oauth2.rfc6749.errors.OAuth2Error as exc:
-            raise CredentialsError(
-                "Unable to get valid credentials: {}".format(exc)
-            )
+            raise CredentialsError("Unable to get valid credentials: {}".format(exc))
 
 
 def get_authorization_context(
@@ -276,12 +268,8 @@ def get_authorization_context(
         "redirect_uri": urlunparse(
             ["https", _hostname, CALLBACK_CLIENT_URI, None, None, None]
         ),
-        "auth_uri": urlunparse(
-            ["https", _hostname, AUTH_URI, None, None, None]
-        ),
-        "token_uri": urlunparse(
-            ["https", _hostname, TOKEN_URI, None, None, None]
-        ),
+        "auth_uri": urlunparse(["https", _hostname, AUTH_URI, None, None, None]),
+        "token_uri": urlunparse(["https", _hostname, TOKEN_URI, None, None, None]),
     }
 
     app_flow = Flow.from_client_config(client_config, scopes=scopes)

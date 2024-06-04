@@ -92,7 +92,9 @@ class Credentials(object):
             client_secret=client_config.get("client_secret"),
             scopes=session.scope,
         )
-        credentials.expiry = datetime.fromtimestamp(session.token["expires_at"], tz=timezone.utc)
+        credentials.expiry = datetime.fromtimestamp(
+            session.token["expires_at"], tz=timezone.utc
+        )
         return credentials
 
     def __getstate__(self):
