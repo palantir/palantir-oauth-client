@@ -100,6 +100,14 @@ jobs:
           command: poetry publish -v -u $PYPI_USERNAME -p $PYPI_PASSWORD --build
 
 
+  circle-all:
+    docker:
+      - image: cimg/python:3.10.2
+    resource_class: small
+    steps:
+      - run:
+          command: echo "All required jobs finished successfully"
+
 workflows:
   version: 2
   build:
@@ -108,10 +116,14 @@ workflows:
           <<: *always-run
       - lint:
           <<: *always-run
-      - publish:
+      - circle-all:
           requires:
             - py3
             - lint
+          filters: { tags: { only: /.*/ } }
+      - publish:
+          requires:
+            - circle-all
           filters:
             tags: { only: '/^[0-9]+(\.[0-9]+)+(-[a-zA-Z]+[0-9]*)*$/' }
             branches: { ignore: /.*/ }
