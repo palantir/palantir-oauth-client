@@ -117,6 +117,8 @@ class Flow(object):
         finally:
             if previous_value is not None:
                 os.environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = previous_value
+            else:
+                os.environ.pop("OAUTHLIB_RELAX_TOKEN_SCOPE", None)
 
     def get_authorization_url(self, **kwargs) -> str:
         kwargs.setdefault("prompt", "consent")
